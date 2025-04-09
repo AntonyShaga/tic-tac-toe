@@ -8,7 +8,7 @@ export default async function Home() {
   return (
     <div>
       <Button>Hello</Button>
-      {games.map((game) => {
+      {games.map((game: any) => {
         return (
           <Card key={game.id}>
             <CardTitle>{game.name}</CardTitle>
