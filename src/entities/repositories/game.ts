@@ -6,11 +6,13 @@ import {
   GameOverEntity,
 } from '@/entities/domain'
 import { prisma } from '@/shared/lib/db'
-import { Game, User } from '@prisma/client'
+import { Game, Prisma, User } from '@prisma/client'
 import { z } from 'zod'
+import { removePassword } from '@/shared/lib/password'
 
-async function gamesList(): Promise<GameEntity[]> {
+async function gamesList(where?: Prisma.GameWhereInput): Promise<GameEntity[]> {
   const games = await prisma.game.findMany({
+    where,
     include: {
       winner: true,
       players: true,
@@ -24,11 +26,16 @@ const fildSchema = z.array(z.union([z.string(), z.null()]))
 function dbGameToGameEntity(
   game: Game & { players: User[]; winner?: User | null }
 ): GameEntity {
+  const players = game.players.map(removePassword)
   switch (game.status) {
     case 'idle': {
+      const [creator] = players
+      if (!creator) {
+        throw new Error('creator not found')
+      }
       return {
         id: game.id,
-        players: game.players,
+        creator: creator,
         status: game.status,
       } satisfies GameIdelEntity
     }
@@ -36,7 +43,7 @@ function dbGameToGameEntity(
     case 'gameOverDraw': {
       return {
         id: game.id,
-        players: game.players,
+        players: players,
         status: game.status,
         field: fildSchema.parse(game.field),
       } satisfies GameOverDrawEntity | GameInProgressEntity
@@ -47,7 +54,7 @@ function dbGameToGameEntity(
       }
       return {
         id: game.id,
-        players: game.players,
+        players: players,
         status: game.status,
         field: fildSchema.parse(game.field),
         winner: game.winner,

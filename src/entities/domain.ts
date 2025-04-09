@@ -6,7 +6,7 @@ export type GameEntity =
 
 export type GameIdelEntity = {
   id: string
-  players: PlayerEntity[]
+  creator: PlayerEntity
   status: 'idle'
 }
 export type GameInProgressEntity = {

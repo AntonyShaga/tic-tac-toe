@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "db:reset": "dotenv -e .env.development -- npx prisma migrate reset --forcegame",
+    "db:reset": "dotenv -e .env.development -- npx prisma migrate reset --force",
     "db:migrate:dev": "dotenv -e .env.development -- npx prisma migrate dev"
   },
   "prisma": {

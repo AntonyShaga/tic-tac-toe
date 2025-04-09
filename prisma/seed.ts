@@ -1,6 +1,32 @@
 import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
-async function main() {}
+async function main() {
+  const user = await prisma.user.create({
+    data: { login: 'her', passwordHash: 'sdfsdf', rating: 3 },
+  })
+  await prisma.game.create({
+    data: {
+      field: Array(9).fill(null),
+      status: 'idle',
+      players: {
+        connect: {
+          id: user.id,
+        },
+      },
+    },
+  })
+  await prisma.game.create({
+    data: {
+      field: Array(9).fill(null),
+      status: 'idle',
+      players: {
+        connect: {
+          id: user.id,
+        },
+      },
+    },
+  })
+}
 main()
   .then(async () => {
     await prisma.$disconnect()
