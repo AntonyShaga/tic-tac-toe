@@ -1,0 +1,34 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Game {
+  id         String     @id @default(cuid())
+  players    User[]     @relation("games")
+  winner     User?      @relation(fields: [winnerId], references: [id])
+  status     GemeStatus
+  winnerId   String?
+  isDraw     Boolean?
+  gameOwerAt Boolean
+}
+
+enum GemeStatus {
+  idle
+  inProgress
+  gameOver
+  gameOverDrow
+}
+
+model User {
+  id           String @id @default(cuid())
+  login        String
+  raiting      String
+  passwordHash String
+  games        Game[] @relation("games")
+  winnerGames  Game[]
+}
