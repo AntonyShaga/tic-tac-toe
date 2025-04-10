@@ -3,6 +3,7 @@
 import { createGame } from '@/entities/server'
 import { prisma } from '@/shared/lib/db'
 import { left } from '@/shared/lib/either'
+import { redirect } from 'next/navigation'
 
 export const createGameAction = async () => {
   const user = await prisma.user.findFirst({})
@@ -10,6 +11,10 @@ export const createGameAction = async () => {
     return left('User not found' as const)
   }
   const gameResult = await createGame(user)
+
+  if (gameResult.type === 'right') {
+    redirect(`/game/${gameResult.value.id}`)
+  }
 
   return gameResult
 }

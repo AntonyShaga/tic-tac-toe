@@ -15,7 +15,7 @@ async function main() {
       },
     },
   })*/
-  await prisma.game.create({
+  /*await prisma.game.create({
     data: {
       field: Array(9).fill(null),
       status: 'idle',
@@ -25,7 +25,7 @@ async function main() {
         },
       },
     },
-  })
+  })*/
 }
 main()
   .then(async () => {
