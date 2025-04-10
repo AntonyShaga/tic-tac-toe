@@ -1,1 +1,1 @@
-export { GameList } from './ui/game-list'
+export { GameList } from 'src/features/games-list/containers/game-list'
