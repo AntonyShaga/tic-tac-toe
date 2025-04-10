@@ -1,22 +1,22 @@
 import { getIdleGames } from '@/entities/server'
-import { Card, CardContent, CardHeader, CardTitle } from '@/shared/ui/card'
+
+import { GameCard } from '@/features/games-list/ui/game-card'
+import { Layout, CreateButton } from '@/features/games-list/server'
 
 export async function GameList() {
   const games = await getIdleGames()
 
   return (
-    <div className="grid grid-cols-2 gap-4">
+    <Layout actions={<CreateButton />}>
       {games.map((game) => {
         return (
-          <Card key={game.id}>
-            <CardHeader>
-              <CardTitle>Игра с :{game.creator.login}</CardTitle>
-            </CardHeader>
-
-            <CardContent>Рейтинг:{game.creator.rating}</CardContent>
-          </Card>
+          <GameCard
+            key={game.id}
+            login={game.creator.login}
+            rating={game.creator.rating}
+          />
         )
       })}
-    </div>
+    </Layout>
   )
 }

@@ -4,7 +4,7 @@ async function main() {
   const user = await prisma.user.create({
     data: { login: 'her', passwordHash: 'sdfsdf', rating: 3 },
   })
-  await prisma.game.create({
+  /* await prisma.game.create({
     data: {
       field: Array(9).fill(null),
       status: 'idle',
@@ -14,7 +14,7 @@ async function main() {
         },
       },
     },
-  })
+  })*/
   await prisma.game.create({
     data: {
       field: Array(9).fill(null),
