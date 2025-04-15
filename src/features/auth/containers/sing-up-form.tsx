@@ -9,7 +9,7 @@ import {
 } from '@/features/auth'
 import { right } from '@/shared/lib/either'
 import { useActionState } from '@/shared/lib/react'
-import { signUpActions } from '@/features/actions/sign-up'
+import { signUpActions } from '@/features/auth/actions/sign-up'
 
 export function SignUpForm() {
   const [formState, action, isPending] = useActionState(
