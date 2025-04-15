@@ -1,5 +1,5 @@
-import { PlayerEntity } from '@/entities/domain'
-import { gameRepository } from '@/entities/repositories/game'
+import { PlayerEntity } from '@/entities/game/domain'
+import { gameRepository } from '@/entities/game/repositories/game'
 import cuid from 'cuid'
 import { left, right } from '@/shared/lib/either'
 

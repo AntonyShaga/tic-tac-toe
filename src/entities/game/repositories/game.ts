@@ -4,7 +4,7 @@ import {
   GameInProgressEntity,
   GameOverDrawEntity,
   GameOverEntity,
-} from '@/entities/domain'
+} from '@/entities/game/domain'
 import { prisma } from '@/shared/lib/db'
 import { Game, Prisma, User } from '@prisma/client'
 import { z } from 'zod'

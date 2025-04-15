@@ -18,6 +18,7 @@ CREATE TABLE "User" (
     "login" TEXT NOT NULL,
     "rating" INTEGER NOT NULL,
     "passwordHash" TEXT NOT NULL,
+    "salt" TEXT NOT NULL DEFAULT '',
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
